@@ -1,0 +1,12 @@
+{
+  "dataset_version": "2.0",
+  "dataset_tier": "development",
+  "market_scope": "United States",
+  "ad_delivery_row_count": 50000,
+  "start_date": "2022-01-01",
+  "end_date": "2026-06-30",
+  "random_seed": 42,
+  "quality_exception_rate": 0.0075,
+  "output_directory": "data/v2/generated",
+  "output_format": "csv"
+}
