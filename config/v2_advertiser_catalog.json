@@ -1,0 +1,132 @@
+{
+  "advertisers": [
+    {
+      "advertiser_id": "AD001",
+      "advertiser_name": "Apex Automotive",
+      "industry": "Automotive",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.5
+    },
+    {
+      "advertiser_id": "AD002",
+      "advertiser_name": "VoltDrive Motors",
+      "industry": "Automotive",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 1.1
+    },
+    {
+      "advertiser_id": "AD003",
+      "advertiser_name": "Harvest Foods",
+      "industry": "Consumer Packaged Goods",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Linear First",
+      "budget_weight": 1.6
+    },
+    {
+      "advertiser_id": "AD004",
+      "advertiser_name": "BrightHome Products",
+      "industry": "Consumer Packaged Goods",
+      "size_tier": "Growth",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.0
+    },
+    {
+      "advertiser_id": "AD005",
+      "advertiser_name": "Pioneer Financial",
+      "industry": "Financial Services",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.4
+    },
+    {
+      "advertiser_id": "AD006",
+      "advertiser_name": "NovaPay",
+      "industry": "Financial Services",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 0.9
+    },
+    {
+      "advertiser_id": "AD007",
+      "advertiser_name": "Vertex Technologies",
+      "industry": "Technology",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 1.5
+    },
+    {
+      "advertiser_id": "AD008",
+      "advertiser_name": "CloudSpring Software",
+      "industry": "Technology",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 0.8
+    },
+    {
+      "advertiser_id": "AD009",
+      "advertiser_name": "MarketSquare Retail",
+      "industry": "Retail",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.5
+    },
+    {
+      "advertiser_id": "AD010",
+      "advertiser_name": "UrbanTrail Outfitters",
+      "industry": "Retail",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 0.9
+    },
+    {
+      "advertiser_id": "AD011",
+      "advertiser_name": "WellPath Health",
+      "industry": "Healthcare",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Linear First",
+      "budget_weight": 1.3
+    },
+    {
+      "advertiser_id": "AD012",
+      "advertiser_name": "Clearview Therapeutics",
+      "industry": "Healthcare",
+      "size_tier": "Growth",
+      "platform_strategy": "Balanced",
+      "budget_weight": 0.8
+    },
+    {
+      "advertiser_id": "AD013",
+      "advertiser_name": "ConnectWave Communications",
+      "industry": "Telecommunications",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.4
+    },
+    {
+      "advertiser_id": "AD014",
+      "advertiser_name": "Pulse Mobile",
+      "industry": "Telecommunications",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 0.9
+    },
+    {
+      "advertiser_id": "AD015",
+      "advertiser_name": "SilverLine Studios",
+      "industry": "Entertainment",
+      "size_tier": "Enterprise",
+      "platform_strategy": "Balanced",
+      "budget_weight": 1.3
+    },
+    {
+      "advertiser_id": "AD016",
+      "advertiser_name": "ArcadeVerse",
+      "industry": "Entertainment",
+      "size_tier": "Growth",
+      "platform_strategy": "Streaming First",
+      "budget_weight": 0.8
+    }
+  ]
+}
