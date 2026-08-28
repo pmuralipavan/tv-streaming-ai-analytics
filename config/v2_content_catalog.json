@@ -1,0 +1,88 @@
+{
+  "programs": [
+    {
+      "program_id": "PG001",
+      "program_name": "Frontier ER",
+      "genre": "Drama",
+      "content_owner_company_id": "MC001",
+      "distribution_property_ids": ["MP001", "MP002"]
+    },
+    {
+      "program_id": "PG002",
+      "program_name": "Sunday Gridiron",
+      "genre": "Sports",
+      "content_owner_company_id": "MC001",
+      "distribution_property_ids": ["MP002", "MP003"]
+    },
+    {
+      "program_id": "PG003",
+      "program_name": "City Desk",
+      "genre": "News",
+      "content_owner_company_id": "MC001",
+      "distribution_property_ids": ["MP001", "MP002"]
+    },
+    {
+      "program_id": "PG004",
+      "program_name": "Harbor District",
+      "genre": "Crime Drama",
+      "content_owner_company_id": "MC002",
+      "distribution_property_ids": ["MP004", "MP005"]
+    },
+    {
+      "program_id": "PG005",
+      "program_name": "World Report Tonight",
+      "genre": "News",
+      "content_owner_company_id": "MC002",
+      "distribution_property_ids": ["MP005", "MP006"]
+    },
+    {
+      "program_id": "PG006",
+      "program_name": "Next Stage",
+      "genre": "Reality",
+      "content_owner_company_id": "MC002",
+      "distribution_property_ids": ["MP004", "MP005"]
+    },
+    {
+      "program_id": "PG007",
+      "program_name": "Championship Central",
+      "genre": "Sports",
+      "content_owner_company_id": "MC003",
+      "distribution_property_ids": ["MP008", "MP009"]
+    },
+    {
+      "program_id": "PG008",
+      "program_name": "Summit Investigates",
+      "genre": "Documentary",
+      "content_owner_company_id": "MC003",
+      "distribution_property_ids": ["MP007", "MP008"]
+    },
+    {
+      "program_id": "PG009",
+      "program_name": "Family Circuit",
+      "genre": "Comedy",
+      "content_owner_company_id": "MC003",
+      "distribution_property_ids": ["MP007", "MP008"]
+    },
+    {
+      "program_id": "PG010",
+      "program_name": "Metro Morning",
+      "genre": "News",
+      "content_owner_company_id": "MC004",
+      "distribution_property_ids": ["MP010", "MP011", "MP012"]
+    },
+    {
+      "program_id": "PG011",
+      "program_name": "Kitchen Passport",
+      "genre": "Lifestyle",
+      "content_owner_company_id": "MC004",
+      "distribution_property_ids": ["MP005", "MP010", "MP011"]
+    },
+    {
+      "program_id": "PG012",
+      "program_name": "After Hours Live",
+      "genre": "Talk",
+      "content_owner_company_id": "MC004",
+      "distribution_property_ids": ["MP010", "MP011"]
+    }
+  ]
+}
