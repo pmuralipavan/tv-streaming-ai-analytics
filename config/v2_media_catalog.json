@@ -1,0 +1,100 @@
+{
+  "media_companies": [
+    {
+      "company_id": "MC001",
+      "company_name": "Northstar Media Group",
+      "properties": [
+        {
+          "property_id": "MP001",
+          "property_name": "Northstar Broadcast",
+          "property_type": "Broadcast Network",
+          "platform": "Linear TV"
+        },
+        {
+          "property_id": "MP002",
+          "property_name": "Northstar Stream",
+          "property_type": "Streaming Service",
+          "platform": "Streaming"
+        },
+        {
+          "property_id": "MP003",
+          "property_name": "Northstar Sports",
+          "property_type": "Cable Network",
+          "platform": "Linear TV"
+        }
+      ]
+    },
+    {
+      "company_id": "MC002",
+      "company_name": "Horizon Entertainment",
+      "properties": [
+        {
+          "property_id": "MP004",
+          "property_name": "Horizon Television",
+          "property_type": "Broadcast Network",
+          "platform": "Linear TV"
+        },
+        {
+          "property_id": "MP005",
+          "property_name": "Horizon Plus",
+          "property_type": "Streaming Service",
+          "platform": "Streaming"
+        },
+        {
+          "property_id": "MP006",
+          "property_name": "Pulse News",
+          "property_type": "Cable Network",
+          "platform": "Linear TV"
+        }
+      ]
+    },
+    {
+      "company_id": "MC003",
+      "company_name": "Summit Media Holdings",
+      "properties": [
+        {
+          "property_id": "MP007",
+          "property_name": "Summit Network",
+          "property_type": "Broadcast Network",
+          "platform": "Linear TV"
+        },
+        {
+          "property_id": "MP008",
+          "property_name": "Summit Play",
+          "property_type": "Streaming Service",
+          "platform": "Streaming"
+        },
+        {
+          "property_id": "MP009",
+          "property_name": "Summit Sports",
+          "property_type": "Cable Network",
+          "platform": "Linear TV"
+        }
+      ]
+    },
+    {
+      "company_id": "MC004",
+      "company_name": "MetroVision Media",
+      "properties": [
+        {
+          "property_id": "MP010",
+          "property_name": "Metro One",
+          "property_type": "Broadcast Network",
+          "platform": "Linear TV"
+        },
+        {
+          "property_id": "MP011",
+          "property_name": "Metro Now",
+          "property_type": "Streaming Service",
+          "platform": "Streaming"
+        },
+        {
+          "property_id": "MP012",
+          "property_name": "Metro News",
+          "property_type": "Cable Network",
+          "platform": "Linear TV"
+        }
+      ]
+    }
+  ]
+}

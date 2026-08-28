@@ -17,3 +17,5 @@ Thumbs.db
 
 # Generated processed data
 data/processed/
+
+data/v2/generated/
