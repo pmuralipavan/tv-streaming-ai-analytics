@@ -591,6 +591,14 @@ V2 should create realistic but imperfect patterns.
 - Finance and telecom maintain cross-platform allocations.
 - Political demand is concentrated around election periods.
 
+### Platform CPM evolution scenario
+
+- Linear TV begins the simulation with a higher blended base CPM than Streaming.
+- Linear TV blended CPM declines modestly as demand softens and discounting increases.
+- Streaming blended CPM grows as advertiser adoption, targeting value and demand increase.
+- The model should permit Streaming blended CPM to overtake Linear TV during the five-year period, but the exact crossover year must emerge from configured assumptions and content mix rather than being directly assigned to transactional records.
+- This is a synthetic portfolio-level monetization scenario and is not presented as an industry-wide historical claim.
+
 ### Seasonality
 
 - Q4 generally has the strongest advertising demand.
