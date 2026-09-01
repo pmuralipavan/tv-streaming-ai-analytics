@@ -5,6 +5,31 @@ from typing import Any
 
 EXPECTED_PLATFORMS = {"Linear TV", "Streaming"}
 EXPECTED_MONTHS = {str(month) for month in range(1, 13)}
+EXPECTED_PROPERTY_TYPES = {
+    "Broadcast Network",
+    "Cable Network",
+    "Streaming Service",
+}
+
+EXPECTED_DAYPARTS = {
+    "Morning",
+    "Daytime",
+    "Early Fringe",
+    "Primetime",
+    "Late Night",
+    "Live Event",
+}
+EXPECTED_GENRES = {
+    "Sports",
+    "Crime Drama",
+    "Drama",
+    "News",
+    "Comedy",
+    "Reality",
+    "Talk",
+    "Documentary",
+    "Lifestyle",
+}
 
 REQUIRED_PLATFORM_FIELDS = {
     "base_cpm_2022",
@@ -127,6 +152,10 @@ def validate_market_rules(rules: dict[str, Any]) -> None:
         "daypart_cpm_multipliers",
     )
 
+    validate_inventory_generation(
+        rules.get("inventory_generation", {})
+    )
+
 
 def validate_monthly_multipliers(
     multipliers: dict[str, float],
@@ -153,4 +182,126 @@ def validate_positive_multipliers(
     if any(value <= 0 for value in multipliers.values()):
         raise ValueError(
             f"{rule_name} values must be greater than zero."
+        )
+
+def validate_inventory_generation(
+    inventory_rules: dict[str, Any],
+) -> None:
+    required_fields = {
+        "base_monthly_units_by_property_type",
+        "daypart_supply_multipliers",
+        "genre_daypart_weights_by_platform",
+        "random_variation_minimum",
+        "random_variation_maximum",
+        "minimum_inventory_units",
+    }
+
+    missing_fields = required_fields - set(inventory_rules)
+    if missing_fields:
+        raise ValueError(
+            f"Inventory generation is missing fields: "
+            f"{sorted(missing_fields)}"
+        )
+
+    base_units = inventory_rules[
+        "base_monthly_units_by_property_type"
+    ]
+
+    if set(base_units) != EXPECTED_PROPERTY_TYPES:
+        raise ValueError(
+            "Inventory base units must define all property types."
+        )
+
+    if any(value <= 0 for value in base_units.values()):
+        raise ValueError(
+            "Inventory base units must be greater than zero."
+        )
+
+    daypart_multipliers = inventory_rules[
+        "daypart_supply_multipliers"
+    ]
+
+    if set(daypart_multipliers) != EXPECTED_DAYPARTS:
+        raise ValueError(
+            "Inventory supply multipliers must define all dayparts."
+        )
+
+    if any(
+        value <= 0
+        for value in daypart_multipliers.values()
+    ):
+        raise ValueError(
+            "Inventory supply multipliers must be greater than zero."
+        )
+
+    genre_daypart_rules = inventory_rules[
+        "genre_daypart_weights_by_platform"
+    ]
+
+    if set(genre_daypart_rules) != EXPECTED_PLATFORMS:
+        raise ValueError(
+            "Genre-daypart rules must define both platforms."
+        )
+
+    for platform, genre_rules in genre_daypart_rules.items():
+        if set(genre_rules) != EXPECTED_GENRES:
+            raise ValueError(
+                f"{platform} must define all expected genres."
+            )
+
+        for genre, daypart_weights in genre_rules.items():
+            if not daypart_weights:
+                raise ValueError(
+                    f"{platform} {genre} daypart weights "
+                    f"cannot be empty."
+                )
+
+            invalid_dayparts = (
+                set(daypart_weights) - EXPECTED_DAYPARTS
+            )
+
+            if invalid_dayparts:
+                raise ValueError(
+                    f"{platform} {genre} contains invalid "
+                    f"dayparts: {sorted(invalid_dayparts)}"
+                )
+
+            if any(
+                weight <= 0
+                for weight in daypart_weights.values()
+            ):
+                raise ValueError(
+                    f"{platform} {genre} daypart weights "
+                    f"must be greater than zero."
+                )
+
+            if (
+                abs(sum(daypart_weights.values()) - 1.0)
+                > 0.000001
+            ):
+                raise ValueError(
+                    f"{platform} {genre} daypart weights "
+                    f"must total 1.0."
+                )
+
+    variation_minimum = inventory_rules[
+        "random_variation_minimum"
+    ]
+    variation_maximum = inventory_rules[
+        "random_variation_maximum"
+    ]
+
+    if not 0 < variation_minimum <= variation_maximum:
+        raise ValueError(
+            "Inventory variation minimum must be positive "
+            "and no greater than the maximum."
+        )
+
+    minimum_units = inventory_rules[
+        "minimum_inventory_units"
+    ]
+
+    if minimum_units <= 0:
+        raise ValueError(
+            "minimum_inventory_units must be greater than zero."
         )

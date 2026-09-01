@@ -70,12 +70,143 @@
     "Documentary": 0.88,
     "Lifestyle": 0.85
   },
-  "daypart_cpm_multipliers": {
+    "daypart_cpm_multipliers": {
     "Morning": 0.85,
     "Daytime": 0.75,
     "Early Fringe": 0.95,
     "Primetime": 1.3,
     "Late Night": 0.85,
     "Live Event": 1.45
-  }
+  },
+  "inventory_generation": {
+  "base_monthly_units_by_property_type": {
+    "Broadcast Network": 4200,
+    "Cable Network": 3200,
+    "Streaming Service": 5600
+  },
+  "daypart_supply_multipliers": {
+    "Morning": 1.05,
+    "Daytime": 1.15,
+    "Early Fringe": 1.0,
+    "Primetime": 0.8,
+    "Late Night": 0.9,
+    "Live Event": 0.65
+  },
+  "genre_daypart_weights_by_platform": {
+    "Linear TV": {
+      "Sports": {
+        "Primetime": 0.2,
+        "Live Event": 0.8
+      },
+      "Crime Drama": {
+        "Primetime": 0.75,
+        "Late Night": 0.25
+      },
+      "Drama": {
+        "Primetime": 0.75,
+        "Late Night": 0.25
+      },
+      "News": {
+        "Morning": 0.35,
+        "Early Fringe": 0.3,
+        "Primetime": 0.2,
+        "Late Night": 0.15
+      },
+      "Comedy": {
+        "Early Fringe": 0.3,
+        "Primetime": 0.5,
+        "Late Night": 0.2
+      },
+      "Reality": {
+        "Early Fringe": 0.3,
+        "Primetime": 0.5,
+        "Late Night": 0.2
+      },
+      "Talk": {
+        "Morning": 0.25,
+        "Daytime": 0.25,
+        "Late Night": 0.5
+      },
+      "Documentary": {
+        "Daytime": 0.3,
+        "Primetime": 0.45,
+        "Late Night": 0.25
+      },
+      "Lifestyle": {
+        "Morning": 0.3,
+        "Daytime": 0.5,
+        "Early Fringe": 0.2
+      }
+    },
+    "Streaming": {
+      "Sports": {
+        "Morning": 0.05,
+        "Daytime": 0.1,
+        "Early Fringe": 0.1,
+        "Primetime": 0.25,
+        "Late Night": 0.1,
+        "Live Event": 0.4
+      },
+      "Crime Drama": {
+        "Morning": 0.05,
+        "Daytime": 0.15,
+        "Early Fringe": 0.2,
+        "Primetime": 0.4,
+        "Late Night": 0.2
+      },
+      "Drama": {
+        "Morning": 0.05,
+        "Daytime": 0.15,
+        "Early Fringe": 0.2,
+        "Primetime": 0.4,
+        "Late Night": 0.2
+      },
+      "News": {
+        "Morning": 0.25,
+        "Daytime": 0.15,
+        "Early Fringe": 0.2,
+        "Primetime": 0.25,
+        "Late Night": 0.15
+      },
+      "Comedy": {
+        "Morning": 0.1,
+        "Daytime": 0.2,
+        "Early Fringe": 0.2,
+        "Primetime": 0.3,
+        "Late Night": 0.2
+      },
+      "Reality": {
+        "Morning": 0.1,
+        "Daytime": 0.2,
+        "Early Fringe": 0.2,
+        "Primetime": 0.3,
+        "Late Night": 0.2
+      },
+      "Talk": {
+        "Morning": 0.2,
+        "Daytime": 0.2,
+        "Early Fringe": 0.15,
+        "Primetime": 0.2,
+        "Late Night": 0.25
+      },
+      "Documentary": {
+        "Morning": 0.1,
+        "Daytime": 0.25,
+        "Early Fringe": 0.2,
+        "Primetime": 0.3,
+        "Late Night": 0.15
+      },
+      "Lifestyle": {
+        "Morning": 0.2,
+        "Daytime": 0.3,
+        "Early Fringe": 0.2,
+        "Primetime": 0.2,
+        "Late Night": 0.1
+      }
+    }
+  },
+  "random_variation_minimum": 0.85,
+  "random_variation_maximum": 1.15,
+  "minimum_inventory_units": 100
+}
 }
