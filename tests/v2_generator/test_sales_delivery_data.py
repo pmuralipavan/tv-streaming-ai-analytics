@@ -22,19 +22,21 @@ def build_market_rules():
             "agency_fee_rate": 0.15,
         },
         "platform_rules": {
-           "Linear TV": {
-            "base_cpm_2022": 24.0,
-            "annual_cpm_growth_rate": -0.01,
-            "delivery_rate_mean": 0.97,
-            "delivery_rate_standard_deviation": 0.08,
-                    },
-           "Streaming": {
-            "base_cpm_2022": 21.0,
-            "annual_cpm_growth_rate": 0.05,
-            "delivery_rate_mean": 0.96,
-            "delivery_rate_standard_deviation": 0.10,
-                  },
-          },
+            "Linear TV": {
+                "base_cpm_2022": 24.0,
+                "annual_cpm_growth_rate": -0.01,
+                "annual_demand_growth_rate": -0.025,
+                "delivery_rate_mean": 0.97,
+                "delivery_rate_standard_deviation": 0.08,
+            },
+            "Streaming": {
+                "base_cpm_2022": 21.0,
+                "annual_cpm_growth_rate": 0.05,
+                "annual_demand_growth_rate": 0.04,
+                "delivery_rate_mean": 0.96,
+                "delivery_rate_standard_deviation": 0.10,
+            },
+        },
 
         "genre_cpm_multipliers": {
             "Drama": 1.12,

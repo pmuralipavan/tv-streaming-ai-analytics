@@ -156,6 +156,10 @@ def validate_market_rules(rules: dict[str, Any]) -> None:
         rules.get("inventory_generation", {})
     )
 
+    validate_sales_delivery_generation(
+        rules.get("sales_delivery_generation", {})
+    )
+
 
 def validate_monthly_multipliers(
     multipliers: dict[str, float],
@@ -304,4 +308,90 @@ def validate_inventory_generation(
     if minimum_units <= 0:
         raise ValueError(
             "minimum_inventory_units must be greater than zero."
+        )
+
+def validate_sales_delivery_generation(
+    sales_rules: dict[str, Any],
+) -> None:
+    required_fields = {
+        "base_sell_through_rate_by_platform",
+        "impressions_per_inventory_unit",
+        "minimum_sell_through_rate",
+        "maximum_sell_through_rate",
+        "minimum_delivery_rate",
+        "maximum_delivery_rate",
+        "agency_fee_rate",
+    }
+
+    missing_fields = required_fields - set(sales_rules)
+
+    if missing_fields:
+        raise ValueError(
+            "Sales delivery generation is missing fields: "
+            f"{sorted(missing_fields)}"
+        )
+
+    sell_through_rates = sales_rules[
+        "base_sell_through_rate_by_platform"
+    ]
+
+    if set(sell_through_rates) != EXPECTED_PLATFORMS:
+        raise ValueError(
+            "Sales delivery sell-through rates must define "
+            "Linear TV and Streaming."
+        )
+
+    if any(
+        not 0 < rate <= 1
+        for rate in sell_through_rates.values()
+    ):
+        raise ValueError(
+            "Base sell-through rates must be greater than 0 "
+            "and no more than 1."
+        )
+
+    minimum_sell_through_rate = sales_rules[
+        "minimum_sell_through_rate"
+    ]
+
+    maximum_sell_through_rate = sales_rules[
+        "maximum_sell_through_rate"
+    ]
+
+    if not (
+        0 < minimum_sell_through_rate
+        <= maximum_sell_through_rate
+        <= 1
+    ):
+        raise ValueError(
+            "Sell-through bounds must be between 0 and 1."
+        )
+
+    minimum_delivery_rate = sales_rules[
+        "minimum_delivery_rate"
+    ]
+
+    maximum_delivery_rate = sales_rules[
+        "maximum_delivery_rate"
+    ]
+
+    if not (
+        0 < minimum_delivery_rate
+        <= maximum_delivery_rate
+    ):
+        raise ValueError(
+            "Delivery-rate bounds must be positive "
+            "and minimum cannot exceed maximum."
+        )
+
+    if sales_rules["impressions_per_inventory_unit"] <= 0:
+        raise ValueError(
+            "impressions_per_inventory_unit must be greater than zero."
+        )
+
+    agency_fee_rate = sales_rules["agency_fee_rate"]
+
+    if not 0 <= agency_fee_rate < 1:
+        raise ValueError(
+            "agency_fee_rate must be between 0 and 1."
         )
