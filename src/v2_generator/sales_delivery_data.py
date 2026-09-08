@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from src.v2_generator.market_behavior import BASE_YEAR
 
 
 def validate_sales_delivery_frame(
@@ -40,7 +41,20 @@ def validate_sales_delivery_frame(
         raise ValueError(
             "Delivered impressions cannot be negative."
         )
+    if (
+        sales_delivery_df["gross_revenue"] < 0
+    ).any():
+        raise ValueError(
+            "Gross revenue cannot be negative."
+        )
 
+    if (
+        sales_delivery_df["net_revenue"] < 0
+    ).any():
+        raise ValueError(
+            "Net revenue cannot be negative."
+        )
+        
 
 def generate_sales_delivery(
     inventory_df: pd.DataFrame,
@@ -78,7 +92,66 @@ def generate_sales_delivery(
         on="program_id",
         how="inner",
         validate="many_to_one",
+    )    
+    
+    sales_delivery_df["year_offset"] = (
+        sales_delivery_df["inventory_month"].dt.year
+        - BASE_YEAR
     )
+
+    base_cpm_by_platform = {
+        platform: rules["base_cpm_2022"]
+        for platform, rules in market_rules[
+            "platform_rules"
+        ].items()
+    }
+
+    annual_cpm_growth_by_platform = {
+        platform: rules["annual_cpm_growth_rate"]
+        for platform, rules in market_rules[
+            "platform_rules"
+        ].items()
+    }
+
+    sales_delivery_df["base_cpm"] = (
+        sales_delivery_df["platform"].map(
+            base_cpm_by_platform
+        )
+    )
+
+    sales_delivery_df["annual_cpm_growth_rate"] = (
+        sales_delivery_df["platform"].map(
+            annual_cpm_growth_by_platform
+        )
+    )
+
+    sales_delivery_df["genre_cpm_multiplier"] = (
+        sales_delivery_df["genre"].map(
+            market_rules["genre_cpm_multipliers"]
+        )
+    )
+
+    sales_delivery_df["daypart_cpm_multiplier"] = (
+        sales_delivery_df["daypart"].map(
+            market_rules["daypart_cpm_multipliers"]
+        )
+    )
+
+    sales_delivery_df["effective_cpm"] = (
+        sales_delivery_df["base_cpm"]
+        * (
+            (
+                1
+                + sales_delivery_df[
+                    "annual_cpm_growth_rate"
+                ]
+            )
+            ** sales_delivery_df["year_offset"]
+        )
+        * sales_delivery_df["genre_cpm_multiplier"]
+        * sales_delivery_df["daypart_cpm_multiplier"]
+    )
+    
 
     base_sell_through_rates = sales_rules[
         "base_sell_through_rate_by_platform"
@@ -188,6 +261,22 @@ def generate_sales_delivery(
         np.rint(
             booked_impressions * delivery_rates
         ).astype(int)
+    )
+
+    sales_delivery_df["gross_revenue"] = (
+    sales_delivery_df["delivered_impressions"]
+    / 1000
+    * sales_delivery_df["effective_cpm"]
+    )
+
+    sales_delivery_df["agency_fee"] = (
+        sales_delivery_df["gross_revenue"]
+        * sales_rules["agency_fee_rate"]
+    )
+
+    sales_delivery_df["net_revenue"] = (
+        sales_delivery_df["gross_revenue"]
+        - sales_delivery_df["agency_fee"]
     )
 
     return sales_delivery_df
