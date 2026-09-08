@@ -19,17 +19,31 @@ def build_market_rules():
             "impressions_per_inventory_unit": 1000,
             "minimum_delivery_rate": 0.70,
             "maximum_delivery_rate": 1.10,
+            "agency_fee_rate": 0.15,
         },
         "platform_rules": {
            "Linear TV": {
+            "base_cpm_2022": 24.0,
+            "annual_cpm_growth_rate": -0.01,
             "delivery_rate_mean": 0.97,
             "delivery_rate_standard_deviation": 0.08,
                     },
            "Streaming": {
+            "base_cpm_2022": 21.0,
+            "annual_cpm_growth_rate": 0.05,
             "delivery_rate_mean": 0.96,
             "delivery_rate_standard_deviation": 0.10,
                   },
           },
+
+        "genre_cpm_multipliers": {
+            "Drama": 1.12,
+        },
+
+        "daypart_cpm_multipliers": {
+            "Primetime": 1.30,
+        },
+
     }
 
 class TestSalesDeliveryData(unittest.TestCase):
@@ -307,8 +321,176 @@ class TestSalesDeliveryData(unittest.TestCase):
             delivery_rate,
             1.10,
         )
-        
+    
+    def test_effective_cpm_uses_platform_growth_genre_and_daypart(self):
+        inventory_df = pd.DataFrame(
+            [
+                {
+                    "inventory_id": "INV0000001",
+                    "inventory_month": pd.Timestamp("2026-01-01"),
+                    "property_id": "PROP001",
+                    "program_id": "PROG001",
+                    "daypart": "Primetime",
+                    "available_inventory_units": 100,
+                }
+            ]
+        )
 
+        properties_df = pd.DataFrame(
+            [
+                {
+                    "property_id": "PROP001",
+                    "platform": "Streaming",
+                }
+            ]
+        )
+
+        programs_df = pd.DataFrame(
+            [
+                {
+                    "program_id": "PROG001",
+                    "genre": "Drama",
+                }
+            ]
+        )
+
+        result_df = generate_sales_delivery(
+            inventory_df=inventory_df,
+            random_seed=42,
+            market_rules=build_market_rules(),
+            properties_df=properties_df,
+            programs_df=programs_df,
+        )
+
+        expected_cpm = (
+            21.0
+            * (1.05 ** 4)
+            * 1.12
+            * 1.30
+        )
+
+        self.assertAlmostEqual(
+            result_df["effective_cpm"].iloc[0],
+            expected_cpm,
+            places=6,
+        )
+
+    def test_gross_revenue_uses_delivered_impressions_and_cpm(self):
+        inventory_df = pd.DataFrame(
+            [
+                {
+                    "inventory_id": "INV0000001",
+                    "inventory_month": pd.Timestamp("2026-01-01"),
+                    "property_id": "PROP001",
+                    "program_id": "PROG001",
+                    "daypart": "Primetime",
+                    "available_inventory_units": 100,
+                }
+            ]
+        )
+
+        properties_df = pd.DataFrame(
+            [
+                {
+                    "property_id": "PROP001",
+                    "platform": "Streaming",
+                }
+            ]
+        )
+
+        programs_df = pd.DataFrame(
+            [
+                {
+                    "program_id": "PROG001",
+                    "genre": "Drama",
+                }
+            ]
+        )
+
+        result_df = generate_sales_delivery(
+            inventory_df=inventory_df,
+            random_seed=42,
+            market_rules=build_market_rules(),
+            properties_df=properties_df,
+            programs_df=programs_df,
+        )
+
+        expected_gross_revenue = (
+            result_df["delivered_impressions"].iloc[0]
+            / 1000
+            * result_df["effective_cpm"].iloc[0]
+        )
+
+        self.assertAlmostEqual(
+            result_df["gross_revenue"].iloc[0],
+            expected_gross_revenue,
+            places=6,
+        )    
+
+    def test_agency_fee_and_net_revenue_are_calculated(self):
+        inventory_df = pd.DataFrame(
+            [
+                {
+                    "inventory_id": "INV0000001",
+                    "inventory_month": pd.Timestamp("2026-01-01"),
+                    "property_id": "PROP001",
+                    "program_id": "PROG001",
+                    "daypart": "Primetime",
+                    "available_inventory_units": 100,
+                }
+            ]
+        )
+
+        properties_df = pd.DataFrame(
+            [
+                {
+                    "property_id": "PROP001",
+                    "platform": "Streaming",
+                }
+            ]
+        )
+
+        programs_df = pd.DataFrame(
+            [
+                {
+                    "program_id": "PROG001",
+                    "genre": "Drama",
+                }
+            ]
+        )
+
+        result_df = generate_sales_delivery(
+            inventory_df=inventory_df,
+            random_seed=42,
+            market_rules=build_market_rules(),
+            properties_df=properties_df,
+            programs_df=programs_df,
+        )
+
+        gross_revenue = result_df[
+            "gross_revenue"
+        ].iloc[0]
+
+        expected_agency_fee = (
+            gross_revenue * 0.15
+        )
+
+        expected_net_revenue = (
+            gross_revenue
+            - expected_agency_fee
+        )
+
+        self.assertAlmostEqual(
+            result_df["agency_fee"].iloc[0],
+            expected_agency_fee,
+            places=6,
+        )
+
+        self.assertAlmostEqual(
+            result_df["net_revenue"].iloc[0],
+            expected_net_revenue,
+            places=6,
+        )
 
 if __name__ == "__main__":
     unittest.main()
