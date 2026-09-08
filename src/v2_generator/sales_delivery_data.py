@@ -163,12 +163,34 @@ def generate_sales_delivery(
         )
     )
 
+    annual_demand_growth_by_platform = {
+        platform: rules["annual_demand_growth_rate"]
+        for platform, rules in market_rules[
+            "platform_rules"
+        ].items()
+    }
+
+    sales_delivery_df["annual_demand_growth_rate"] = (
+        sales_delivery_df["platform"].map(
+            annual_demand_growth_by_platform
+        )
+    )
+
     random_generator = np.random.default_rng(
         random_seed
     )
 
     sales_delivery_df["sell_through_rate"] = (
         sales_delivery_df["base_sell_through_rate"]
+        * (
+            (
+                1
+                + sales_delivery_df[
+                    "annual_demand_growth_rate"
+                ]
+            )
+            ** sales_delivery_df["year_offset"]
+        )
         * random_generator.uniform(
             low=0.90,
             high=1.10,

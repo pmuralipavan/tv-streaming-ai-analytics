@@ -78,24 +78,14 @@
     "Late Night": 0.85,
     "Live Event": 1.45
   },
+
   "inventory_generation": {
   "base_monthly_units_by_property_type": {
     "Broadcast Network": 4200,
     "Cable Network": 3200,
     "Streaming Service": 5600
   },
-  "sales_delivery_generation": {
-  "base_sell_through_rate_by_platform": {
-    "Linear TV": 0.78,
-    "Streaming": 0.82
-  },
-  "impressions_per_inventory_unit": 1000,
-  "minimum_sell_through_rate": 0.25,
-  "maximum_sell_through_rate": 0.98,
-  "minimum_delivery_rate": 0.70,
-  "maximum_delivery_rate": 1.10,
-  "agency_fee_rate": 0.15
-},
+
   "daypart_supply_multipliers": {
     "Morning": 1.05,
     "Daytime": 1.15,
@@ -220,5 +210,19 @@
   "random_variation_minimum": 0.85,
   "random_variation_maximum": 1.15,
   "minimum_inventory_units": 100
-}
+  },
+
+  "sales_delivery_generation": {
+    "base_sell_through_rate_by_platform": {
+      "Linear TV": 0.78,
+      "Streaming": 0.82
+    },
+    "impressions_per_inventory_unit": 1000,
+    "minimum_sell_through_rate": 0.25,
+    "maximum_sell_through_rate": 0.98,
+    "minimum_delivery_rate": 0.70,
+    "maximum_delivery_rate": 1.10,
+    "agency_fee_rate": 0.15
+  }
+
 }
